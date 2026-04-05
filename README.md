@@ -1,4 +1,4 @@
-# 🧟 Not a Zombies Game (NZG)
+# Not a Zombies Game (NZG)
 
 ![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue?logo=godot-engine&logoColor=white)
 ![Language](https://img.shields.io/badge/Language-GDScript-yellow)
@@ -10,7 +10,7 @@
 
 ---
 
-## 📸 Galería del Proyecto
+## Galería del Proyecto
 
 ### Protagonista y Amenazas
 | Jugador (POV/Modelo) | Enemigo (Zombie) |
@@ -18,7 +18,9 @@
 | ![Jugador](screenshots/PLAYER.png) | ![Zombie](screenshots/ZOMBIE.png) |
 
 ### Arsenal de Supervivencia
-![MK2](screenshots/MK2.png) | ![AKM](screenshots/RIFLE1.png) | ![SMG](screenshots/SMG.png)
+|MK2 | AKM | SMG | 
+|:---: | :---: | :---: |
+|[MK2](screenshots/MK2.png) | [AKM](screenshots/RIFLE1.png) | [SMG](screenshots/SMG.png) |
 *Visualización del sistema de armas actual (Pistola, Rifle y Escopeta).*
 
 ### Entorno y Navegación
@@ -32,7 +34,7 @@
 
 ---
 
-## 🚀 Características Principales
+## Características Principales
 
 * **Combate Dinámico:** Sistema de disparo funcional con retroalimentación básica.
 * **Hordas Progresivas:** Incremento gradual de la dificultad por oleada.
@@ -41,7 +43,7 @@
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 * **Motor:** [Godot Engine 4.x](https://godotengine.org/)
 * **Lenguaje:** GDScript
@@ -50,35 +52,22 @@
 
 ---
 
-## 📊 Estado del Proyecto
+## Estado del Proyecto
 
-### ✅ Finalizado e Implementado
+### Finalizado e Implementado
 - [x] Controlador de movimiento avanzado (Caminar, Correr).
 - [x] Sistema de disparo base.
 - [x] Layout del mapa inicial.
 - [x] HUD de puntuación y estado.
 
-### 🚧 En Desarrollo
-- [ ] Refactorización del disparo automático.
-- [ ] IA de persecución (NavigationMesh).
-- [ ] Sistema de spawn aleatorio de enemigos.
-- [ ] Corrección de carga de música ambiental.
-
 ---
 
-## 🕹️ Controles de Juego
+## Controles de Juego
 
 | Acción | Tecla |
 | :--- | :--- |
 | **Movimiento** | `W` `A` `S` `D` |
 | **Disparar** | `Click Izquierdo` |
-| **Sprint (Correr)** | `Shift Izquierdo` |
 | **Menú de Pausa** | `ESC` |
 
 ---
-
-## 🔧 Instalación y Ejecución
-
-1. **Clonar este repositorio:**
-   ```bash
-   git clone [https://github.com/Rzztr/ZombiesGamev1.git](https://github.com/Rzztr/ZombiesGamev1.git)
