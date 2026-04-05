@@ -1,17 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cf28m4q7yqyhw"]
+[gd_scene load_steps=6 format=3 uid="uid://cf28m4q7yqyhw"]
 
-[ext_resource type="Script" path="res://scripts/zombie.gd" id="1_zombie"]
+[ext_resource type="Script" uid="uid://ceqs5hxcnq0ad" path="res://scripts/zombie.gd" id="1_zombie"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_k1tq3"]
-radius = 0.5
-height = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1x76c"]
 albedo_color = Color(0.188235, 0.498039, 0.203922, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d0a1b"]
-radius = 0.5
-height = 2.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g0j1b"]
 properties/0/path = NodePath(".:position")

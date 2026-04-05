@@ -13,9 +13,15 @@ var zombies_remaining_in_round: int = 0
 var zombies_alive: int = 0
 var round_active: bool = false
 var spawn_timer: float = 0.0
+var next_level_player: AudioStreamPlayer
 
 func _ready() -> void:
 	add_to_group("RoundManager")
+
+	next_level_player = AudioStreamPlayer.new()
+	next_level_player.stream = preload("res://audio/soundsEffects/NextLevel.mp3")
+	add_child(next_level_player)
+
 	if not multiplayer.is_server():
 		set_process(false)
 		return
@@ -24,7 +30,13 @@ func _ready() -> void:
 	# We should probably hook into the multiplayer signal or just check in _process
 	pass
 
+@rpc("call_local")
+func play_next_level_sound() -> void:
+	if next_level_player:
+		next_level_player.play()
+
 func start_next_round() -> void:
+	play_next_level_sound.rpc()
 	current_round += 1
 	zombies_remaining_in_round = base_zombies + (current_round * zombies_per_round)
 	zombies_alive = 0

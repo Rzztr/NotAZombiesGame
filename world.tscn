@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b57uspbprxc8"]
+[gd_scene load_steps=24 format=3 uid="uid://b57uspbprxc8"]
 
 [ext_resource type="Script" uid="uid://bd81ysdlqd6oy" path="res://scripts/world.gd" id="1_ho7yh"]
 [ext_resource type="PackedScene" uid="uid://bd3ai1v40ssao" path="res://map.tscn" id="3_fd0sg"]
@@ -12,8 +12,8 @@
 [ext_resource type="Script" uid="uid://du5qtfmm8p5du" path="res://scripts/ui/menu/pause/resume.gd" id="7_5cdyw"]
 [ext_resource type="Script" uid="uid://bmy1ha2maxmwg" path="res://scripts/ui/menu/options/controller_sensitivity.gd" id="7_jhf7u"]
 [ext_resource type="Script" uid="uid://o3k14mw74n81" path="res://scripts/ui/menu/pause/quit.gd" id="9_ucmny"]
-[ext_resource type="Script" path="res://scripts/round_manager.gd" id="10_roundmgr"]
-[ext_resource type="Script" path="res://scripts/music_player.gd" id="11_music"]
+[ext_resource type="Script" uid="uid://cyg6wgrd8b3n5" path="res://scripts/round_manager.gd" id="10_roundmgr"]
+[ext_resource type="Script" uid="uid://c1v7ssefmf535" path="res://scripts/music_player.gd" id="11_music"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_r06yd"]
 energy_multiplier = 1.25
@@ -123,9 +123,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, -17)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, -17)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://zombie.tscn")
+_spawnable_scenes = PackedStringArray("uid://cf28m4q7yqyhw")
 spawn_path = NodePath("..")
-
 
 [node name="Menu" type="CanvasLayer" parent="."]
 
@@ -335,6 +334,51 @@ theme_override_font_sizes/font_size = 24
 text = "Quit"
 script = ExtResource("9_ucmny")
 
+[node name="DeathScreen" type="PanelContainer" parent="Menu"]
+visible = false
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1151.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = SubResource("Theme_utqnk")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/DeathScreen"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/DeathScreen/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="MainMenuLabel" type="Label" parent="Menu/DeathScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Not A Zombies Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostButton" type="Button" parent="Menu/DeathScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96163124, 0.8933597, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Reestart Game"
+script = ExtResource("4_nuahp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/DeathScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="Menu/DeathScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.1882353, 0.13725491, 1)
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
 script = ExtResource("11_music")
@@ -346,5 +390,7 @@ script = ExtResource("11_music")
 [connection signal="pressed" from="Menu/Options/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Menu/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Menu/DeathScreen/MarginContainer/VBoxContainer/HostButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Menu/DeathScreen/MarginContainer/VBoxContainer/Quit" to="." method="_on_return_main_menu_pressed"]
 
 [editable path="map"]

@@ -13,9 +13,16 @@ var paused: bool = false
 var options: bool = false
 var controller: bool = false
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	$map.process_mode = Node.PROCESS_MODE_PAUSABLE
+	$RoundManager.process_mode = Node.PROCESS_MODE_PAUSABLE
+	$GameMusic.process_mode = Node.PROCESS_MODE_PAUSABLE
+
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_pressed("pause") and !main_menu.visible and !options_menu.visible:
+	if event.is_action_pressed("pause") and !main_menu.visible and !options_menu.visible and !$Menu/DeathScreen.visible:
 		paused = !paused
+		get_tree().paused = paused
 	if event is InputEventJoypadMotion:
 		controller = true
 	elif event is InputEventMouseMotion:
@@ -35,6 +42,7 @@ func _on_resume_pressed() -> void:
 	if !controller:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	paused = false
+	get_tree().paused = false
 	
 func _on_options_pressed() -> void:
 	_on_resume_pressed()
@@ -116,3 +124,44 @@ func upnp_setup() -> void:
 		print("Failed to establish upnp connection!")
 	else:
 		print("Success! Join Address: %s" % upnp.query_external_address())
+
+func show_death_screen() -> void:
+	$Menu/Blur.show()
+	$Menu/DeathScreen.show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().paused = true
+
+func _on_restart_button_pressed() -> void:
+	$Menu/DeathScreen.hide()
+	$Menu/Blur.hide()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	get_tree().paused = false
+	request_restart.rpc_id(1)
+
+@rpc("any_peer", "call_local")
+func request_restart() -> void:
+	if not multiplayer.is_server():
+		return
+	Global.reset_score.rpc()
+	var zombies = get_tree().get_nodes_in_group("Zombies")
+	for z in zombies:
+		z.queue_free()
+		
+	var rm = $RoundManager
+	rm.current_round = 0
+	rm.zombies_alive = 0
+	rm.zombies_remaining_in_round = 0
+	rm.round_active = false
+	rm.start_next_round()
+		
+	var players = get_tree().get_nodes_in_group("Players")
+	for p in players:
+		p.current_health = p.max_health
+		p.position = p.spawns[randi() % p.spawns.size()]
+
+func _on_return_main_menu_pressed() -> void:
+	if multiplayer.multiplayer_peer is ENetMultiplayerPeer:
+		multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
+	get_tree().paused = false
+	get_tree().reload_current_scene()

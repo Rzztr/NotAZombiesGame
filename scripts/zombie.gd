@@ -13,8 +13,17 @@ const ATTACK_DELAY: float = 1.0
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
+var zombie_sound_player: AudioStreamPlayer3D
+
 func _ready() -> void:
-	pass
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+	zombie_sound_player = AudioStreamPlayer3D.new()
+	var sound1 = preload("res://audio/soundsEffects/Zombie1.mp3")
+	var sound2 = preload("res://audio/soundsEffects/Zombie2.mp3")
+	zombie_sound_player.stream = sound1 if randi() % 2 == 0 else sound2
+	zombie_sound_player.max_distance = 50.0
+	add_child(zombie_sound_player)
+	zombie_sound_player.play()
 
 func initialize(round_number: int, manager: Node) -> void:
 	round_manager = manager
@@ -72,6 +81,7 @@ func take_damage(amount: int) -> void:
 	if multiplayer.is_server():
 		current_health -= amount
 		if current_health <= 0:
+			Global.add_score.rpc(100)
 			die()
 
 func die() -> void:
