@@ -1,80 +1,84 @@
-# Not a Zombies Game
+# 🧟 Not a Zombies Game (NZG)
 
-## Descripción
+![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue?logo=godot-engine&logoColor=white)
+![Language](https://img.shields.io/badge/Language-GDScript-yellow)
+![Status](https://img.shields.io/badge/Status-In--Development-green)
 
-NZG es un videojuego de supervivencia basado en oleadas donde el jugador debe resistir la mayor cantidad de rondas posibles frente a hordas de enemigos. El juego se desarrolla en un entorno abandonado y hostil donde el objetivo principal es mantenerse con vida mientras la dificultad aumenta progresivamente.
+> "Sí, como CoD Zombies pero humilde."
 
-El jugador debe administrar sus recursos, moverse estratégicamente dentro del mapa y eliminar enemigos antes de ser rodeado.
-
-
-si, como Cod Zombies pero pobre :v
----
-
-## Características del juego
-
-- Sistema de combate con armas de fuego
-- Enemigos tipo zombie con ataques cuerpo a cuerpo
-- Sistema de oleadas con dificultad progresiva
-- Escenario cerrado enfocado en supervivencia
-- Sistema de puntos basado en enemigos eliminados
-- Música ambiental para generar tensión
-- Interfaz simple enfocada en la jugabilidad
+**NZG** es un shooter de supervivencia en primera persona desarrollado en **Godot Engine**. El núcleo del juego se centra en la resistencia por oleadas, donde la gestión de recursos y el movimiento estratégico son la única diferencia entre sobrevivir o ser rodeado por la horda.
 
 ---
 
-## Tecnologías utilizadas
+## 📸 Galería del Proyecto
 
-- Motor de juego: Godot
-- Lenguaje: GDScript
-- Plataforma objetivo: PC
-- Control de versiones: Git
+### Protagonista y Amenazas
+| Jugador (POV/Modelo) | Enemigo (Zombie) |
+| :---: | :---: |
+| ![Jugador](screenshots/PLAYER.png) | ![Zombie](screenshots/ZOMBIE.png) |
 
----
+### Arsenal de Supervivencia
+![MK2](screenshots/MK2.png) | ![AKM](screenshots/RIFLE1.png) | ![SMG](screenshots/SMG.png)
+*Visualización del sistema de armas actual (Pistola, Rifle y Escopeta).*
 
-## Estado actual del proyecto
+### Entorno y Navegación
+| Mapa del Nivel | Mapa de Pistas / Ayuda |
+| :---: | :---: |
+| ![Mapa](screenshots/MAP.webp) | ![Guia](screenshots/HINT.png) |
 
-El proyecto se encuentra actualmente en fase de desarrollo.
-
-### Sistemas implementados
-
-- Movimiento del jugador
-- Sistema básico de disparo
-- Mapa inicial jugable
-- Interfaz básica del juego
-
-### Sistemas en desarrollo
-
-- Lógica de comportamiento de zombies
-- Sistema de dificultad progresiva
-- Integración de música ambiental
-- Diseño y modelado 3D de los enemigos
+### Atmósfera Sonora
+![Soundtrack](screenshots/NAZG-Album.png)
+*Curaduría musical diseñada para aumentar la tensión conforme avanzan las rondas.*
 
 ---
 
-## Problemas conocidos
+## 🚀 Características Principales
 
-Durante las pruebas actuales se han identificado algunos comportamientos que se encuentran en proceso de corrección:
-
-- El disparo del jugador es momentáneo y no permite disparo automático.
-- La música puede fallar al cargar o generar errores durante la reproducción.
-- Algunos modelos visuales aún cargan recursos por defecto del motor en lugar de los diseños personalizados.
-
----
-
-## Controles
-
-| Acción | Control |
-|------|------|
-Mover personaje | WASD |
-Disparar | Click izquierdo |
-Correr | Shift |
-Pausa | ESC |
+* **Combate Dinámico:** Sistema de disparo funcional con retroalimentación básica.
+* **Hordas Progresivas:** Incremento gradual de la dificultad por oleada.
+* **Economía de Puntos:** Sistema de puntuación basado en bajas confirmadas.
+* **Diseño Minimalista:** Interfaz de usuario (UI) limpia para maximizar la inmersión.
 
 ---
 
-## Instalación y ejecución
+## 🛠️ Stack Tecnológico
 
-1. Clonar el repositorio
+* **Motor:** [Godot Engine 4.x](https://godotengine.org/)
+* **Lenguaje:** GDScript
+* **Control de Versiones:** Git
+* **Plataforma Objetivo:** PC (Windows/Linux)
 
-```bash
-git clone https://github.com/Rzztr/ZombiesGamev1.git
+---
+
+## 📊 Estado del Proyecto
+
+### ✅ Finalizado e Implementado
+- [x] Controlador de movimiento avanzado (Caminar, Correr).
+- [x] Sistema de disparo base.
+- [x] Layout del mapa inicial.
+- [x] HUD de puntuación y estado.
+
+### 🚧 En Desarrollo
+- [ ] Refactorización del disparo automático.
+- [ ] IA de persecución (NavigationMesh).
+- [ ] Sistema de spawn aleatorio de enemigos.
+- [ ] Corrección de carga de música ambiental.
+
+---
+
+## 🕹️ Controles de Juego
+
+| Acción | Tecla |
+| :--- | :--- |
+| **Movimiento** | `W` `A` `S` `D` |
+| **Disparar** | `Click Izquierdo` |
+| **Sprint (Correr)** | `Shift Izquierdo` |
+| **Menú de Pausa** | `ESC` |
+
+---
+
+## 🔧 Instalación y Ejecución
+
+1. **Clonar este repositorio:**
+   ```bash
+   git clone [https://github.com/Rzztr/ZombiesGamev1.git](https://github.com/Rzztr/ZombiesGamev1.git)
