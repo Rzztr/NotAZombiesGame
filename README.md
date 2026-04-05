@@ -20,8 +20,8 @@
 ### Arsenal de Supervivencia
 |MK2 | AKM | SMG | 
 |:---: | :---: | :---: |
-|[MK2](screenshots/MK2.png) | [AKM](screenshots/RIFLE1.png) | [SMG](screenshots/SMG.png) |
-*Visualización del sistema de armas actual (Pistola, Rifle y Escopeta).*
+| ![MK2](screenshots/MK2.png) | ![AKM](screenshots/RIFLE1.png) | ![SMG](screenshots/SMG.png) |
+
 
 ### Entorno y Navegación
 | Mapa del Nivel | Mapa de Pistas / Ayuda |
