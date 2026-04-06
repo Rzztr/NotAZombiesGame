@@ -42,8 +42,7 @@ func start_next_round() -> void:
 	zombies_alive = 0
 	round_active = true
 	spawn_timer = spawn_interval
-	print("Starting Round ", current_round, " with ", zombies_remaining_in_round, " zombies!")
-
+	
 func _process(delta: float) -> void:
 	if not round_active:
 		if multiplayer.is_server() and current_round == 0:
@@ -82,4 +81,3 @@ func spawn_zombie() -> void:
 
 func zombie_died() -> void:
 	zombies_alive -= 1
-	print("Zombie died! Alive: ", zombies_alive, " Remaining in wave: ", zombies_remaining_in_round)
