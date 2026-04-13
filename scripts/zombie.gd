@@ -29,7 +29,6 @@ func initialize(round_number: int, manager: Node) -> void:
 	round_manager = manager
 	var max_health = base_health + (round_number * health_per_round)
 	current_health = max_health
-	print("Zombie spawned with ", current_health, " health points for round ", round_number)
 
 func _physics_process(delta: float) -> void:
 	if not multiplayer.is_server():

@@ -59,14 +59,12 @@ func _process(delta: float) -> void:
 			
 	if zombies_remaining_in_round <= 0 and zombies_alive <= 0:
 		round_active = false
-		print("Round ", current_round, " complete! Next round in ", time_between_rounds, " seconds...")
 		await get_tree().create_timer(time_between_rounds).timeout
 		start_next_round()
 
 func spawn_zombie() -> void:
 	var spawn_points = get_tree().get_nodes_in_group("SpawnPoints")
 	if spawn_points.size() == 0:
-		print("No spawn points found!")
 		return
 		
 	var sp = spawn_points[randi() % spawn_points.size()]
