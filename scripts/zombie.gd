@@ -16,6 +16,7 @@ const ATTACK_DELAY: float = 1.0
 var zombie_sound_player: AudioStreamPlayer3D
 
 func _ready() -> void:
+	add_to_group("Zombies")
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	zombie_sound_player = AudioStreamPlayer3D.new()
 	var sound1 = preload("res://audio/soundsEffects/Zombie1.mp3")
@@ -30,6 +31,9 @@ func initialize(round_number: int, manager: Node) -> void:
 	var max_health = base_health + (round_number * health_per_round)
 	current_health = max_health
 
+var target: Node3D = null
+var target_update_timer: float = 0.0
+
 func _physics_process(delta: float) -> void:
 	if not multiplayer.is_server():
 		return
@@ -37,7 +41,12 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= 9.8 * delta
 		
-	var target = _get_closest_player()
+	target_update_timer -= delta
+	if target_update_timer <= 0:
+		target = _get_closest_player()
+		# Randomize the timer slightly so all zombies don't update exactly on the same frame
+		target_update_timer = randf_range(0.2, 0.4)
+		
 	if target:
 		var dist = global_position.distance_to(target.global_position)
 		if dist < ATTACK_RANGE:
@@ -49,8 +58,20 @@ func _physics_process(delta: float) -> void:
 		else:
 			time_in_contact = 0.0
 			
+		# Separation force to avoid clumping (reduces collision resolution overhead)
+		var separation = Vector3.ZERO
+		var all_zombies = get_tree().get_nodes_in_group("Zombies")
+		for z in all_zombies:
+			if z != self and z.is_inside_tree():
+				var d = global_position.distance_to(z.global_position)
+				if d < 1.5 and d > 0.01:
+					separation += (global_position - z.global_position).normalized() * (1.5 - d)
+					
 		var dir = global_position.direction_to(target.global_position)
-		var new_velocity = dir * speed
+		# Combine path direction with separation
+		var combined_dir = (dir + separation * 1.5).normalized()
+		var new_velocity = combined_dir * speed
+		
 		velocity.x = move_toward(velocity.x, new_velocity.x, .25)
 		velocity.z = move_toward(velocity.z, new_velocity.z, .25)
 		

@@ -62,14 +62,34 @@ func _process(delta: float) -> void:
 		await get_tree().create_timer(time_between_rounds).timeout
 		start_next_round()
 
+var last_spawn_points: Array = []
+
 func spawn_zombie() -> void:
 	var spawn_points = get_tree().get_nodes_in_group("SpawnPoints")
 	if spawn_points.size() == 0:
 		return
 		
-	var sp = spawn_points[randi() % spawn_points.size()]
+	var valid_points = []
+	for sp in spawn_points:
+		if not last_spawn_points.has(sp):
+			valid_points.append(sp)
+			
+	if valid_points.size() == 0:
+		valid_points = spawn_points
+		last_spawn_points.clear()
+		
+	var sp = valid_points[randi() % valid_points.size()]
+	
+	last_spawn_points.append(sp)
+	if last_spawn_points.size() > max(1, spawn_points.size() / 2):
+		last_spawn_points.pop_front()
+		
 	var zombie = ZombieScene.instantiate()
-	zombie.position = sp.global_position
+	
+	var rand_x = randf_range(-1.5, 1.5)
+	var rand_z = randf_range(-1.5, 1.5)
+	zombie.position = sp.global_position + Vector3(rand_x, 0, rand_z)
+	
 	zombie.name = "Zombie_" + str(current_round) + "_" + str(zombies_remaining_in_round)
 	get_parent().add_child(zombie)
 	
