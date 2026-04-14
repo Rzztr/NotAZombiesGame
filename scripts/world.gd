@@ -7,6 +7,7 @@ extends Node
 @onready var menu_music: AudioStreamPlayer = %MenuMusic
 
 const Player = preload("res://player.tscn")
+const LoadingScreenScene = preload("res://scripts/ui/menu/Loading.tscn")
 const PORT = 9999
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var paused: bool = false
@@ -66,7 +67,10 @@ func _on_host_button_pressed() -> void:
 	$Menu/DollyCamera.hide()
 	$Menu/Blur.hide()
 	menu_music.stop()
-	$GameMusic.start_random_song()
+
+	var loading_screen = LoadingScreenScene.instantiate()
+	add_child(loading_screen)
+	await get_tree().create_timer(1.5).timeout
 
 	enet_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = enet_peer
@@ -79,17 +83,26 @@ func _on_host_button_pressed() -> void:
 	add_player(multiplayer.get_unique_id())
 
 	upnp_setup()
+	
+	loading_screen.queue_free()
+	$GameMusic.start_random_song()
 
 func _on_join_button_pressed() -> void:
 	main_menu.hide()
 	$Menu/Blur.hide()
 	menu_music.stop()
-	$GameMusic.start_random_song()
+	
+	var loading_screen = LoadingScreenScene.instantiate()
+	add_child(loading_screen)
+	await get_tree().create_timer(1.5).timeout
 	
 	enet_peer.create_client(address_entry.text, PORT)
 	if options_menu.visible:
 		options_menu.hide()
 	multiplayer.multiplayer_peer = enet_peer
+	
+	loading_screen.queue_free()
+	$GameMusic.start_random_song()
 
 func _on_options_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:

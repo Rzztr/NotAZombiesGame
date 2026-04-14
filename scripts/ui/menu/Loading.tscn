@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://qs8w3xp831im"]
+
+[sub_resource type="Theme" id="Theme_qynnp"]
+
+[node name="Loading" type="Node3D"]
+
+[node name="LoadingScreen" type="CanvasLayer" parent="."]
+
+[node name="Screen" type="PanelContainer" parent="LoadingScreen"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -574.0
+offset_right = 574.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_qynnp")
+
+[node name="MarginContainer" type="MarginContainer" parent="LoadingScreen/Screen"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="LoadingScreen/Screen/MarginContainer"]
+layout_mode = 2
+text = "LOADING GAME"
+horizontal_alignment = 1
+vertical_alignment = 1
